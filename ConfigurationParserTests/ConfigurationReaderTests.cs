@@ -33,5 +33,25 @@ namespace ConfigurationParserTests
             Assert.AreEqual(23, actual.MaxValue);
             Assert.AreEqual("AAA", actual.Name);
         }
+
+        [TestMethod]
+        public void ReadConfiguratioNodesTest()
+        {
+            string inputXml = @"
+                <SimpleConfiguration>
+                    <Name>AAA</Name>
+                    <MaxValue>23</MaxValue>
+                </SimpleConfiguration>";
+
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(inputXml);
+
+            IMappingStrategyFactory mappingStrategyFactory = MappingStrategyFactory.Instance;
+            IConfigurationReader configurationReader = new ConfigurationReader(xml.FirstChild, mappingStrategyFactory);
+
+            SimpleConfiguration actual = configurationReader.ReadObject<SimpleConfiguration>();
+            Assert.AreEqual(23, actual.MaxValue);
+            Assert.AreEqual("AAA", actual.Name);
+        }
     }
 }
