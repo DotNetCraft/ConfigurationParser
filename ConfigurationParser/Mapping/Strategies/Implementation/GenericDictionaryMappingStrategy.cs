@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Xml;
+
+namespace ConfigurationParser.Mapping.Strategies.Implementation
+{
+    /// <summary>
+    /// The strategy is using for converting node data into the IDictionary<K,V>
+    /// </summary>
+    public class GenericDictionaryMappingStrategy : IMappingStrategy
+    {
+        #region Fields...
+
+        /// <summary>
+        /// The mapping strategies factory.
+        /// </summary>
+        private readonly MappingStrategyFactory _mappingStrategyFactory;
+
+        #endregion
+
+        #region Constructors...
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
+        public GenericDictionaryMappingStrategy(MappingStrategyFactory mappingStrategyFactory)
+        {
+            _mappingStrategyFactory = mappingStrategyFactory;
+        }
+
+        #endregion
+
+        #region Implementation of IMappingStrategy
+
+        /// <summary>
+        /// Convert xml node into the IDictionary<K, itemType>.
+        /// </summary>
+        /// <param name="node">The node</param>
+        /// <param name="collectionType">Collection's type.</param>
+        /// <param name="configurationReader">The IConfigurationReader instance.</param>
+        /// <returns>The IDictionary<K, itemType>.</returns>
+        public object Map(XmlNode node, Type collectionType, IConfigurationReader configurationReader)
+        {
+            //Type collectionType = propertyInfo.PropertyType;
+            var dictionary = Activator.CreateInstance(collectionType);
+            Type keyType = collectionType.GetGenericArguments()[0];
+            Type itemType = collectionType.GetGenericArguments()[1];
+            MethodInfo addMethod = collectionType.GetMethod("Add");
+
+            for (int i = 0; i < node.ChildNodes.Count; i++)
+            {
+                XmlNode childNode = node.ChildNodes[i];
+                string keyValue = childNode.GetNodeValue("key");
+                if (string.IsNullOrEmpty(keyValue))
+                {
+                    string msg = string.Format("There is no 'key' in the {0}.{1}", node.Name, childNode.Name);
+                    throw new KeyNotFoundException(msg);
+                }
+
+                object key;
+                object item;
+
+                if (keyType.IsPrimitive || keyType == typeof(string) || keyType.IsEnum)
+                {
+                    IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
+                    key = mappingStrategy.Map(keyValue, keyType);
+                }
+                else
+                {
+                    string msg = string.Format("{0} as a key not supported.", keyType);
+                    throw new NotSupportedException(msg);
+                }
+
+                if (itemType.IsPrimitive || itemType == typeof(string) || itemType.IsEnum)
+                {
+                    IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
+                    string itemValue = childNode.GetNodeValue("value");
+                    item = mappingStrategy.Map(itemValue, itemType);
+                }
+                else
+                {
+                    XmlNode innerXml = childNode.GetXmlNode("value");
+
+                    if (innerXml.ChildNodes.Count != 1)
+                    {
+                        string msg = string.Format("The value section should contain only one inner element in the {0}.{1}", childNode.Name, innerXml.Name);
+                        throw new IndexOutOfRangeException(msg);
+                    }
+
+                    innerXml = innerXml.ChildNodes[0];
+                    IMappingStrategy mappingStrategy = _mappingStrategyFactory.CreateComplexStrategy(itemType);
+                    item = mappingStrategy.Map(innerXml, itemType, configurationReader);
+                }
+
+                addMethod.Invoke(dictionary, new[] { key, item });
+            }
+
+            return dictionary;
+        }
+
+        #endregion
+    }
+}
