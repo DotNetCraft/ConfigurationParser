@@ -1,9 +1,9 @@
-# Travis-CI Build for WiseQueue
+# Travis-CI Build for ConfigurationParser
 # see travis-ci.org for details
 
 language: csharp
 sudo: required
-solution: WiseQueue.sln
+solution: ConfigurationParser.sln
 
 before_install:
   - export EnableNuGetPackageRestore=true
