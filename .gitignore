@@ -3,3 +3,4 @@ ConfigurationParser/bin/
 ConfigurationParserTests/bin/
 ConfigurationParserTests/obj/
 packages/
+.vs/

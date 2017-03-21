@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>ConfigurationParser</id>
+    <version>1.0.0</version>
+    <authors>DotNetCraft</authors>
+    <description>Simple way for loading configuration from the configuration file</description>
+    <language>en-US</language>
+    <licenseUrl>https://github.com/DotNetCraft/ConfigurationParser/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/DotNetCraft/ConfigurationParser</projectUrl>
+    <tags>Configuration</tags>
+  </metadata>
+</package>
