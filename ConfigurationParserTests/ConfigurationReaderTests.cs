@@ -1,15 +1,10 @@
-﻿using System;
-using System.Configuration;
-using System.Xml;
+﻿using System.Xml;
 using ConfigurationParser;
 using ConfigurationParser.Mapping;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace ConfigurationParserTests
 {
-    [TestClass]
     [TestFixture]
     public class ConfigurationReaderTests
     {
@@ -19,7 +14,6 @@ namespace ConfigurationParserTests
             public int MaxValue { get; set; }
         }
 
-        [TestMethod]
         [Test]
         public void ReadConfigurationAttributesTest()
         {
@@ -38,7 +32,6 @@ namespace ConfigurationParserTests
             Assert.AreEqual("AAA", actual.Name);
         }
 
-        [TestMethod]
         [Test]
         public void ReadConfiguratioNodesTest()
         {
