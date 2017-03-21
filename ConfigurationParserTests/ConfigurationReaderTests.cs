@@ -4,10 +4,13 @@ using System.Xml;
 using ConfigurationParser;
 using ConfigurationParser.Mapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace ConfigurationParserTests
 {
     [TestClass]
+    [TestFixture]
     public class ConfigurationReaderTests
     {
         private class SimpleConfiguration
@@ -17,6 +20,7 @@ namespace ConfigurationParserTests
         }
 
         [TestMethod]
+        [Test]
         public void ReadConfigurationAttributesTest()
         {
             string inputXml = @"
@@ -35,6 +39,7 @@ namespace ConfigurationParserTests
         }
 
         [TestMethod]
+        [Test]
         public void ReadConfiguratioNodesTest()
         {
             string inputXml = @"
