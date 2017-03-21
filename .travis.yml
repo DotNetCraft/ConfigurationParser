@@ -23,7 +23,7 @@ install:
 # Run the build script
 script:
  - xbuild /p:Configuration=Release ConfigurationParser.sln
- - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./tests/ConfigurationParserTests/bin/Release/ConfigurationParserTests.dll
+ - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./ConfigurationParserTests/bin/Release/ConfigurationParserTests.dll
 
 # Only watch the master branch.
 branches:
