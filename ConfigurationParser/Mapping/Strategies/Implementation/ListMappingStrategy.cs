@@ -15,7 +15,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <summary>
         /// The mapping strategies factory.
         /// </summary>
-        private readonly MappingStrategyFactory _mappingStrategyFactory;
+        private readonly IMappingStrategyFactory _mappingStrategyFactory;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// Constructor.
         /// </summary>
         /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
-        public ListMappingStrategy(MappingStrategyFactory mappingStrategyFactory)
+        public ListMappingStrategy(IMappingStrategyFactory mappingStrategyFactory)
         {
             _mappingStrategyFactory = mappingStrategyFactory;
         }

@@ -15,7 +15,11 @@ namespace ConfigurationParser.Example
             Console.WriteLine("   AuthenticationSettings");
             Console.WriteLine("          Login: {0}", externalSystemSettings.AuthenticationSettings.Login);
             Console.WriteLine("          Password: {0}", externalSystemSettings.AuthenticationSettings.Password);
-            Console.WriteLine("          Url: {0}", externalSystemSettings.AuthenticationSettings.Url);
+            for (int index = 0; index < externalSystemSettings.AuthenticationSettings.Urls.Count; index++)
+            {
+                string url = externalSystemSettings.AuthenticationSettings.Urls[index];
+                Console.WriteLine("          Url[{0}]: {1}", index, url);
+            }
             Console.WriteLine("   StaffSettings");
             Console.WriteLine("          Token: {0}", externalSystemSettings.StaffSettings.Token);
             Console.WriteLine("          Url: {0}", externalSystemSettings.StaffSettings.Url);

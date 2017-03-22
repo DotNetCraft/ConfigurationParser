@@ -16,13 +16,13 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <param name="input">The input string.</param>
         /// <param name="itemType">Object's type.</param>
         /// <returns>The primitive object.</returns>
-        public object Map(string input, Type destinationPropertyType)
+        public object Map(string input, Type itemType)
         {
-            TypeConverter converter = TypeDescriptor.GetConverter(destinationPropertyType);
+            TypeConverter converter = TypeDescriptor.GetConverter(itemType);
 
             if (converter.CanConvertFrom(typeof(string)) == false)
             {
-                string msg = string.Format("Cannot convert {0} into the {1}", input, destinationPropertyType);
+                string msg = string.Format("Cannot convert {0} into the {1}", input, itemType);
                 throw new NotSupportedException(msg);
             }
 
