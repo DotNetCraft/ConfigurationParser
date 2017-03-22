@@ -10,4 +10,7 @@
     <projectUrl>https://github.com/DotNetCraft/ConfigurationParser</projectUrl>
     <tags>Configuration</tags>
   </metadata>
+  <files>
+    <file src="..\ConfigurationParser\bin\Release\*.dll" target="lib" />    
+  </files>
 </package>

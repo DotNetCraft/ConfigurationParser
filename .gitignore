@@ -4,3 +4,6 @@ ConfigurationParserTests/bin/
 ConfigurationParserTests/obj/
 packages/
 .vs/
+ConfigurationParser.Example/bin/
+ConfigurationParser.Example/obj/
+ConfigurationParser.sln.DotSettings.user

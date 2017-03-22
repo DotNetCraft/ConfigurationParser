@@ -77,8 +77,8 @@ namespace ConfigurationParser
         /// <returns>The object.</returns>
         public object ReadObject(Type type, XmlNode xmlNode)
         {
-            if (type.Name.ToLower() != xmlNode.Name.ToLower())
-                throw new InvalidCastException("Cannot convert " + xmlNode.Name + " into the " + type.Name);
+            //if (type.Name.ToLower() != xmlNode.Name.ToLower())
+            //    throw new InvalidCastException("Cannot convert " + xmlNode.Name + " into the " + type.Name);
 
             object obj = Activator.CreateInstance(type);
 
