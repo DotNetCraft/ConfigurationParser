@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using ConfigurationParser;
 using ConfigurationParser.Mapping;
@@ -32,6 +29,11 @@ namespace ConfigurationParserTests.StrategiesTests
                         <item>2</item>
                         <item>3</item>
                     </List>", typeof(List<int>), typeof(int), 3)]
+        [TestCase(@"<List>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                    </List>", typeof(List<double>), typeof(double), 3)]
         public void GenericCollectionMappingWithPrimitiveItemsTest(string input, Type expectedType, Type itemType, int collectionSize)
         {
             XmlDocument xmlNode = new XmlDocument();
