@@ -62,13 +62,13 @@
     <Compile Include="StrategiesTests\PrimitiveMappingStrategyTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfigurationParser\ConfigurationParser.csproj">
-      <Project>{FDFF7BBD-6363-4F83-9C15-938DD624D583}</Project>
-      <Name>ConfigurationParser</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\ConfigurationParser\ConfigurationParser.csproj">
+      <Project>{fdff7bbd-6363-4f83-9c15-938dd624d583}</Project>
+      <Name>ConfigurationParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
