@@ -24,7 +24,7 @@ namespace ConfigurationParserTests
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(inputXml);
 
-            IMappingStrategyFactory mappingStrategyFactory = MappingStrategyFactory.Instance;
+            IMappingStrategyFactory mappingStrategyFactory = new MappingStrategyFactory();
             IConfigurationReader configurationReader = new ConfigurationReader(xml.FirstChild, mappingStrategyFactory);
 
             SimpleConfiguration actual = configurationReader.ReadObject<SimpleConfiguration>();
@@ -44,7 +44,7 @@ namespace ConfigurationParserTests
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(inputXml);
 
-            IMappingStrategyFactory mappingStrategyFactory = MappingStrategyFactory.Instance;
+            IMappingStrategyFactory mappingStrategyFactory = new MappingStrategyFactory();
             IConfigurationReader configurationReader = new ConfigurationReader(xml.FirstChild, mappingStrategyFactory);
 
             SimpleConfiguration actual = configurationReader.ReadObject<SimpleConfiguration>();

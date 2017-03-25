@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using ConfigurationParser.Attributes;
 using ConfigurationParser.Mapping;
+using ConfigurationParser.Mapping.Strategies;
 
 namespace ConfigurationParser
 {
@@ -16,12 +17,12 @@ namespace ConfigurationParser
         /// <summary>
         /// The root node.
         /// </summary>
-        private readonly XmlNode _rootNode;
+        private readonly XmlNode rootNode;
 
         /// <summary>
         /// THe IMappingStrategyFactory instance.
         /// </summary>
-        private IMappingStrategyFactory _mappingStrategyFactory;
+        private readonly IMappingStrategyFactory mappingStrategyFactory;
 
         #endregion
 
@@ -32,6 +33,8 @@ namespace ConfigurationParser
         /// </summary>
         /// <param name="rootNode">The root xml node.</param>
         /// <param name="mappingStrategyFactory">THe IMappingStrategyFactory instance.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="rootNode"/> is <see langword="null"/></exception>
+        /// <exception cref="ArgumentNullException"><paramref name="mappingStrategyFactory"/> is <see langword="null"/></exception>
         public ConfigurationReader(XmlNode rootNode, IMappingStrategyFactory mappingStrategyFactory)
         {
             if (rootNode == null)
@@ -39,8 +42,8 @@ namespace ConfigurationParser
             if (mappingStrategyFactory == null)
                 throw new ArgumentNullException(nameof(mappingStrategyFactory));
 
-            _rootNode = rootNode;
-            _mappingStrategyFactory = mappingStrategyFactory;
+            this.rootNode = rootNode;
+            this.mappingStrategyFactory = mappingStrategyFactory;
         }
         #endregion
 
@@ -65,7 +68,7 @@ namespace ConfigurationParser
         /// <returns>The object.</returns>
         public object ReadObject(Type type)
         {
-            object obj = ReadObject(type, _rootNode);
+            object obj = ReadObject(type, rootNode);
             return obj;
         }
 
@@ -121,7 +124,7 @@ namespace ConfigurationParser
                     }
                     else
                     {
-                        IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(propertyInfo.PropertyType);
+                        IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(propertyInfo.PropertyType);
                         value = mappingStrategy.Map(attributeValue, propertyInfo.PropertyType);
                     }
                     propertyInfo.SetValue(obj, value);
@@ -151,13 +154,13 @@ namespace ConfigurationParser
                     Type propertyType = propertyInfo.PropertyType;
                     if (propertyType.IsPrimitive || propertyType == typeof(string) || propertyType.IsEnum)
                     {
-                        IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(propertyInfo.PropertyType);
+                        IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(propertyInfo.PropertyType);
                         var value = mappingStrategy.Map(child.InnerText, propertyInfo.PropertyType);
                         propertyInfo.SetValue(obj, value);
                     }
                     else
                     {                       
-                        IMappingStrategy mappingStrategy = _mappingStrategyFactory.CreateComplexStrategy(propertyInfo.PropertyType);                      
+                        IMappingStrategy mappingStrategy = mappingStrategyFactory.CreateComplexStrategy(propertyInfo.PropertyType);                      
                         var value = mappingStrategy.Map(child, propertyInfo.PropertyType, this);
                         propertyInfo.SetValue(obj, value);
                     }

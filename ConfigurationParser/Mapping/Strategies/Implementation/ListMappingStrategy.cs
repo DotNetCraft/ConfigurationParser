@@ -15,7 +15,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <summary>
         /// The mapping strategies factory.
         /// </summary>
-        private readonly IMappingStrategyFactory _mappingStrategyFactory;
+        private readonly IMappingStrategyFactory mappingStrategyFactory;
 
         #endregion
 
@@ -25,9 +25,13 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// Constructor.
         /// </summary>
         /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="mappingStrategyFactory"/> is <see langword="null"/></exception>
         public ListMappingStrategy(IMappingStrategyFactory mappingStrategyFactory)
         {
-            _mappingStrategyFactory = mappingStrategyFactory;
+            if (mappingStrategyFactory == null)
+                throw new ArgumentNullException(nameof(mappingStrategyFactory));
+
+            this.mappingStrategyFactory = mappingStrategyFactory;
         }
 
         #endregion
@@ -47,7 +51,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
             Type listGenericType = typeof(List<>);
             Type listType = listGenericType.MakeGenericType(elementType);
 
-            IMappingStrategy mappingStrategy = _mappingStrategyFactory.CreateComplexStrategy(listType);
+            IMappingStrategy mappingStrategy = mappingStrategyFactory.CreateComplexStrategy(listType);
             var list = mappingStrategy.Map(node, listType, configurationReader);
 
             MethodInfo toArrayMethod = listType.GetMethod("ToArray");

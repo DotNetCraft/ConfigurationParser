@@ -18,7 +18,7 @@ namespace ConfigurationParser
         /// <param name="section">Section XML node.</param>
         public object Create(object parent, object configContext, XmlNode section)
         {
-            IMappingStrategyFactory mappingStrategyFactory = MappingStrategyFactory.Instance;
+            IMappingStrategyFactory mappingStrategyFactory = new MappingStrategyFactory();
             IConfigurationReader configurationReader = new ConfigurationReader(section, mappingStrategyFactory);
             return configurationReader;
         }

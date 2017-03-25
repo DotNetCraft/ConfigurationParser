@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConfigurationParser.Mapping
+namespace ConfigurationParser.Mapping.Strategies
 {
     /// <summary>
     /// Interface shows that object is a primitive mapping strategy.

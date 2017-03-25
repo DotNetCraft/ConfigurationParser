@@ -15,7 +15,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <summary>
         /// The mapping strategies factory.
         /// </summary>
-        private readonly MappingStrategyFactory _mappingStrategyFactory;
+        private readonly MappingStrategyFactory mappingStrategyFactory;
 
         #endregion
 
@@ -25,9 +25,13 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// Constructor.
         /// </summary>
         /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="mappingStrategyFactory"/> is <see langword="null"/></exception>
         public GenericDictionaryMappingStrategy(MappingStrategyFactory mappingStrategyFactory)
         {
-            _mappingStrategyFactory = mappingStrategyFactory;
+            if (mappingStrategyFactory == null)
+                throw new ArgumentNullException(nameof(mappingStrategyFactory));
+
+            this.mappingStrategyFactory = mappingStrategyFactory;
         }
 
         #endregion
@@ -41,6 +45,12 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <param name="collectionType">Collection's type.</param>
         /// <param name="configurationReader">The IConfigurationReader instance.</param>
         /// <returns>The IDictionary<K, itemType>.</returns>
+        /// <exception cref="KeyNotFoundException">There is no key in the collection..</exception>
+        /// <exception cref="NotSupportedException">Only primitive keys are supported.</exception>
+        /// <exception cref="IndexOutOfRangeException">The value section should contain only one inner element.</exception>
+        /// <exception cref="TargetInvocationException">The constructor being called throws an exception. </exception>
+        /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name. </exception>
+        /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref name="obj" /> parameter is null and the method is not static.-or- The method is not declared or inherited by the class of <paramref name="obj" />. -or-A static constructor is invoked, and <paramref name="obj" /> is neither null nor an instance of the class that declared the constructor.</exception>
         public object Map(XmlNode node, Type collectionType, IConfigurationReader configurationReader)
         {
             //Type collectionType = propertyInfo.PropertyType;
@@ -64,7 +74,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
 
                 if (keyType.IsPrimitive || keyType == typeof(string) || keyType.IsEnum)
                 {
-                    IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
+                    IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
                     key = mappingStrategy.Map(keyValue, keyType);
                 }
                 else
@@ -75,7 +85,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
 
                 if (itemType.IsPrimitive || itemType == typeof(string) || itemType.IsEnum)
                 {
-                    IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
+                    IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
                     string itemValue = childNode.GetNodeValue("value");
                     item = mappingStrategy.Map(itemValue, itemType);
                 }
@@ -90,7 +100,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
                     }
 
                     innerXml = innerXml.ChildNodes[0];
-                    IMappingStrategy mappingStrategy = _mappingStrategyFactory.CreateComplexStrategy(itemType);
+                    IMappingStrategy mappingStrategy = mappingStrategyFactory.CreateComplexStrategy(itemType);
                     item = mappingStrategy.Map(innerXml, itemType, configurationReader);
                 }
 

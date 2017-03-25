@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ConfigurationParser.Exceptions;
+using ConfigurationParser.Mapping.Strategies;
 using ConfigurationParser.Mapping.Strategies.Implementation;
 
 namespace ConfigurationParser.Mapping
@@ -13,53 +14,20 @@ namespace ConfigurationParser.Mapping
         #region Fields...
 
         /// <summary>
-        /// The MappingStrategyFactory instance.
-        /// </summary>
-        private static MappingStrategyFactory _mappingStrategyFactory;
-
-        /// <summary>
-        /// The sync object.
-        /// </summary>
-        private static readonly object _syncObject = new object();
-
-        /// <summary>
         /// Mapping strategies.
         /// </summary>
-        private readonly Dictionary<Type, IMappingStrategy> _mappingStrategies;
+        private readonly Dictionary<Type, IMappingStrategy> mappingStrategies;
 
-        #endregion
-
-        #region Properties...
-
-        /// <summary>
-        /// The IMappingStrategyFactory instance.
-        /// </summary>
-        public static IMappingStrategyFactory Instance
-        {
-            get
-            {
-                if (_mappingStrategyFactory == null)
-                {
-                    lock (_syncObject)
-                    {
-                        if (_mappingStrategyFactory == null)
-                            _mappingStrategyFactory = new MappingStrategyFactory();
-                    }
-                }
-                return _mappingStrategyFactory;
-            }
-        }
-
-        #endregion
+        #endregion        
 
         #region Constructors...
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        private MappingStrategyFactory()
+        public MappingStrategyFactory()
         {
-            _mappingStrategies = new Dictionary<Type, IMappingStrategy>();
+            mappingStrategies = new Dictionary<Type, IMappingStrategy>();
 
             Register(typeof(Array), new ListMappingStrategy(this));
 
@@ -102,7 +70,7 @@ namespace ConfigurationParser.Mapping
             else if (itemType.IsArray)
                 key = typeof(Array);
 
-            if (_mappingStrategies.TryGetValue(key, out mappingStrategy))
+            if (mappingStrategies.TryGetValue(key, out mappingStrategy))
                 return mappingStrategy;
 
             //Just a class.
@@ -116,13 +84,13 @@ namespace ConfigurationParser.Mapping
         /// <param name="mappingStrategy">The <see cref="IMappingStrategy"/> instance.</param>
         public void Register(Type itemType, IMappingStrategy mappingStrategy)
         {
-            if (_mappingStrategies.ContainsKey(itemType))
+            if (mappingStrategies.ContainsKey(itemType))
             {
                 string msg = string.Format("The strategy for the {0} has been already existed.", itemType);
                 throw new MappingStrategyFactoryException(msg);
             }
 
-            _mappingStrategies.Add(itemType, mappingStrategy);
+            mappingStrategies.Add(itemType, mappingStrategy);
         }
 
         #endregion

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using ConfigurationParser;
 using ConfigurationParser.Mapping;
+using ConfigurationParser.Mapping.Strategies;
 using ConfigurationParser.Mapping.Strategies.Implementation;
 using NSubstitute;
 using NUnit.Framework;

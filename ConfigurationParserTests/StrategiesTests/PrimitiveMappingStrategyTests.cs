@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using ConfigurationParser.Mapping;
+using ConfigurationParser.Mapping.Strategies;
 using ConfigurationParser.Mapping.Strategies.Implementation;
 using NUnit.Framework;
 

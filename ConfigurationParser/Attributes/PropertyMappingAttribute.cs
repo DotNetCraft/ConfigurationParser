@@ -17,6 +17,7 @@ namespace ConfigurationParser.Attributes
         /// Constructor.
         /// </summary>
         /// <param name="name">Xml element name.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/></exception>
         public PropertyMappingAttribute(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

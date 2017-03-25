@@ -14,7 +14,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <summary>
         /// The mapping strategies factory.
         /// </summary>
-        private readonly IMappingStrategyFactory _mappingStrategyFactory;
+        private readonly IMappingStrategyFactory mappingStrategyFactory;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
         public GenericCollectionMappingStrategy(IMappingStrategyFactory mappingStrategyFactory)
         {
-            _mappingStrategyFactory = mappingStrategyFactory;
+            this.mappingStrategyFactory = mappingStrategyFactory;
         }
 
         #endregion
@@ -52,13 +52,13 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
 
                 if (itemType.IsPrimitive || itemType == typeof(string) || itemType.IsEnum)
                 {
-                    IPrimitiveMappingStrategy mappingStrategy = _mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
+                    IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(itemType);
                     var item = mappingStrategy.Map(childNode.InnerText, itemType);
                     addMethod.Invoke(list, new[] { item });
                 }
                 else
                 {
-                    IMappingStrategy mappingStrategy = _mappingStrategyFactory.CreateComplexStrategy(itemType);
+                    IMappingStrategy mappingStrategy = mappingStrategyFactory.CreateComplexStrategy(itemType);
                     var item = mappingStrategy.Map(childNode, itemType, configurationReader);
                     addMethod.Invoke(list, new[] { item });
                 }

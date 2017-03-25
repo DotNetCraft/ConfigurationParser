@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace ConfigurationParser.Mapping
+namespace ConfigurationParser.Mapping.Strategies
 {
     /// <summary>
     /// Interface shows that object is a custom mapping strategy.

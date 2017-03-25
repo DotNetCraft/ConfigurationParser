@@ -1,4 +1,5 @@
 ﻿using System;
+using ConfigurationParser.Mapping.Strategies;
 
 namespace ConfigurationParser.Mapping
 {

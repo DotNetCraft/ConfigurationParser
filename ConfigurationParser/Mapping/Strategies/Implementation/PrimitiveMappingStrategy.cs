@@ -16,6 +16,7 @@ namespace ConfigurationParser.Mapping.Strategies.Implementation
         /// <param name="input">The input string.</param>
         /// <param name="itemType">Object's type.</param>
         /// <returns>The primitive object.</returns>
+        /// <exception cref="NotSupportedException">Only primitive types are supported.</exception>
         public object Map(string input, Type itemType)
         {
             TypeConverter converter = TypeDescriptor.GetConverter(itemType);
