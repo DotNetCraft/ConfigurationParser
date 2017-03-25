@@ -3,7 +3,7 @@
 
 language: csharp
 sudo: required
-solution: ConfigurationParser.sln
+solution: DotNetCraft.ConfigurationParser.sln
 
 before_install:
   - export EnableNuGetPackageRestore=true
@@ -12,7 +12,7 @@ before_install:
 install:
  - sudo apt-get install -y gtk-sharp2
  #- travis_retry nuget install .nuget/packages.config -SolutionDirectory packages
- - travis_retry nuget restore ConfigurationParser.sln -Verbosity detailed
+ - travis_retry nuget restore DotNetCraft.ConfigurationParser.sln -Verbosity detailed
  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
  
 #cache: 
@@ -22,8 +22,8 @@ install:
 
 # Run the build script
 script:
- - xbuild /p:Configuration=Release ConfigurationParser.sln
- - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./ConfigurationParserTests/bin/Release/ConfigurationParserTests.dll
+ - xbuild /p:Configuration=Release DotNetCraft.ConfigurationParser.sln
+ - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./DotNetCraft.ConfigurationParserTests/bin/Release/DotNetCraft.ConfigurationParserTests.dll
 
 # Only watch the master branch.
 branches:
