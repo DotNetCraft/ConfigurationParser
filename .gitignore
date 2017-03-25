@@ -7,3 +7,9 @@ packages/
 ConfigurationParser.Example/bin/
 ConfigurationParser.Example/obj/
 ConfigurationParser.sln.DotSettings.user
+DotNetCraft.ConfigurationParser/obj/
+DotNetCraft.ConfigurationParserTests/bin/
+DotNetCraft.ConfigurationParser/bin/
+DotNetCraft.ConfigurationParserTests/obj/
+DotNetCraft.ConfigurationParser.Example/obj/
+DotNetCraft.ConfigurationParser.Example/bin/
