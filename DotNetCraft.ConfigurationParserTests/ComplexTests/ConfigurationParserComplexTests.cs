@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using System.Xml;
 using DotNetCraft.ConfigurationParser;
 using DotNetCraft.ConfigurationParser.Mapping;
@@ -9,12 +10,23 @@ namespace DotNetCraft.ConfigurationParserTests.ComplexTests
     [TestFixture]
     class ConfigurationParserComplexTests
     {
+        private static string ReadFile(string fileName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream("DotNetCraft.ConfigurationParserTests.ComplexTests." + fileName))
+            using (var reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                return result;
+            }
+        }
+
         [Test]
-        [TestCase("ComplexTests\\ComplexTestData01.xml")]
-        [TestCase("ComplexTests\\ComplexTestData02.xml")]
+        [TestCase("ComplexTestData01.xml")]
+        [TestCase("ComplexTestData02.xml")]
         public void ReadConfigurationComplexTest(string fileName)
         {
-            string input = File.ReadAllText(fileName);
+            string input = ReadFile(fileName);
             XmlDocument xmlNode = new XmlDocument();
             xmlNode.LoadXml(input);
 

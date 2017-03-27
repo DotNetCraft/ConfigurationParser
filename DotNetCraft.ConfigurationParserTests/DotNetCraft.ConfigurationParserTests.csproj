@@ -75,12 +75,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ComplexTests\ComplexTestData02.xml">
+    <EmbeddedResource Include="ComplexTests\ComplexTestData02.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ComplexTests\ComplexTestData01.xml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComplexTests\ComplexTestData01.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
