@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.IO;
+using System.Xml;
 using DotNetCraft.ConfigurationParser;
 using DotNetCraft.ConfigurationParser.Mapping;
 using NUnit.Framework;

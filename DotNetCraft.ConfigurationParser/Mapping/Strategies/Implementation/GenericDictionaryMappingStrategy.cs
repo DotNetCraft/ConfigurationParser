@@ -15,7 +15,7 @@ namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
         /// <summary>
         /// The mapping strategies factory.
         /// </summary>
-        private readonly MappingStrategyFactory mappingStrategyFactory;
+        private readonly IMappingStrategyFactory mappingStrategyFactory;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
         /// </summary>
         /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
         /// <exception cref="ArgumentNullException"><paramref name="mappingStrategyFactory"/> is <see langword="null"/></exception>
-        public GenericDictionaryMappingStrategy(MappingStrategyFactory mappingStrategyFactory)
+        public GenericDictionaryMappingStrategy(IMappingStrategyFactory mappingStrategyFactory)
         {
             if (mappingStrategyFactory == null)
                 throw new ArgumentNullException(nameof(mappingStrategyFactory));
@@ -53,11 +53,23 @@ namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
         /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref name="obj" /> parameter is null and the method is not static.-or- The method is not declared or inherited by the class of <paramref name="obj" />. -or-A static constructor is invoked, and <paramref name="obj" /> is neither null nor an instance of the class that declared the constructor.</exception>
         public object Map(XmlNode node, Type collectionType, IConfigurationReader configurationReader)
         {
-            //Type collectionType = propertyInfo.PropertyType;
-            var dictionary = Activator.CreateInstance(collectionType);
+            object dictionary;
             Type keyType = collectionType.GetGenericArguments()[0];
             Type itemType = collectionType.GetGenericArguments()[1];
-            MethodInfo addMethod = collectionType.GetMethod("Add");
+            MethodInfo addMethod;
+            if (collectionType.IsInterface)
+            {
+                var d1 = typeof(Dictionary<,>);
+                Type[] typeArgs = { keyType, itemType };
+                var makeme = d1.MakeGenericType(typeArgs);
+                dictionary = Activator.CreateInstance(makeme);
+                addMethod = makeme.GetMethod("Add");
+            }
+            else
+            {
+                dictionary = Activator.CreateInstance(collectionType);
+                addMethod = collectionType.GetMethod("Add");
+            }
 
             for (int i = 0; i < node.ChildNodes.Count; i++)
             {

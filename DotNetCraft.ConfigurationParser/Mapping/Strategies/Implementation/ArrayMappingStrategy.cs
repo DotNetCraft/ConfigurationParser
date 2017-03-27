@@ -5,10 +5,7 @@ using System.Xml;
 
 namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
 {
-    /// <summary>
-    /// The strategy is using for converting node data into the collection
-    /// </summary>
-    public class GenericCollectionMappingStrategy : IMappingStrategy
+    class ArrayMappingStrategy : IMappingStrategy
     {
         #region Fields...
 
@@ -25,7 +22,7 @@ namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
         /// Constructor.
         /// </summary>
         /// <param name="mappingStrategyFactory">The mapping strategies factory.</param>
-        public GenericCollectionMappingStrategy(IMappingStrategyFactory mappingStrategyFactory)
+        public ArrayMappingStrategy(IMappingStrategyFactory mappingStrategyFactory)
         {
             this.mappingStrategyFactory = mappingStrategyFactory;
         }
@@ -43,23 +40,13 @@ namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
         /// <returns>The collection.</returns>
         public object Map(XmlNode node, Type collectionType, IConfigurationReader configurationReader)
         {
-            Type itemType = collectionType.GetGenericArguments()[0];
-            object list;
-            MethodInfo addMethod;
-            if (collectionType.IsInterface)
-            {
-                var d1 = typeof(List<>);
-                Type[] typeArgs = { itemType };
-                var makeme = d1.MakeGenericType(typeArgs);
-                list = Activator.CreateInstance(makeme);
-                addMethod = makeme.GetMethod("Add");
-            }
-            else
-            {
-                list = Activator.CreateInstance(collectionType);
-                addMethod = collectionType.GetMethod("Add");
-            }            
-
+            Type itemType = collectionType.GetElementType();
+            var d1 = typeof(List<>);
+            Type[] typeArgs = { itemType };
+            var makeme = d1.MakeGenericType(typeArgs);
+            var list = Activator.CreateInstance(makeme);
+            MethodInfo addMethod = makeme.GetMethod("Add");
+            
             for (int i = 0; i < node.ChildNodes.Count; i++)
             {
                 XmlNode childNode = node.ChildNodes[i];
@@ -78,7 +65,8 @@ namespace DotNetCraft.ConfigurationParser.Mapping.Strategies.Implementation
                 }
             }
 
-            return list;
+            MethodInfo toArrayMethod = makeme.GetMethod("ToArray");
+            return toArrayMethod.Invoke(list, null);
         }
 
         #endregion

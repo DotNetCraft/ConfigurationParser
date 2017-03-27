@@ -47,9 +47,9 @@
     <Compile Include="Mapping\MappingStrategyFactory.cs" />
     <Compile Include="Mapping\Strategies\ICustomMappingStrategy.cs" />
     <Compile Include="Mapping\Strategies\IMappingStrategy.cs" />
+    <Compile Include="Mapping\Strategies\Implementation\ArrayMappingStrategy.cs" />
     <Compile Include="Mapping\Strategies\Implementation\GenericCollectionMappingStrategy.cs" />
     <Compile Include="Mapping\Strategies\Implementation\GenericDictionaryMappingStrategy.cs" />
-    <Compile Include="Mapping\Strategies\Implementation\ListMappingStrategy.cs" />
     <Compile Include="Mapping\Strategies\Implementation\ObjectMappingStrategy.cs" />
     <Compile Include="Mapping\Strategies\Implementation\PrimitiveMappingStrategy.cs" />
     <Compile Include="Mapping\Strategies\IPrimitiveMappingStrategy.cs" />

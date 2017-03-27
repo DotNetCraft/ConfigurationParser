@@ -29,14 +29,17 @@ namespace DotNetCraft.ConfigurationParser.Mapping
         {
             mappingStrategies = new Dictionary<Type, IMappingStrategy>();
 
-            Register(typeof(Array), new ListMappingStrategy(this));
-
+            Register(typeof(Array), new ArrayMappingStrategy(this));
             Register(typeof(List<>), new GenericCollectionMappingStrategy(this));
+            Register(typeof(IList<>), new GenericCollectionMappingStrategy(this));
+            Register(typeof(ICollection<>), new GenericCollectionMappingStrategy(this));
             Register(typeof(HashSet<>), new GenericCollectionMappingStrategy(this));
 
             Register(typeof(Dictionary<,>), new GenericDictionaryMappingStrategy(this));
             Register(typeof(SortedList<,>), new GenericDictionaryMappingStrategy(this));
+            Register(typeof(IDictionary<,>), new GenericDictionaryMappingStrategy(this));
         }
+
         #endregion
 
         #region Implementation of IMappingStrategyFactory

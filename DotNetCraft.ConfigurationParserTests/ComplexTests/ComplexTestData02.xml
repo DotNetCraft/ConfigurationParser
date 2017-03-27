@@ -1,0 +1,81 @@
+﻿<SameSampleConfig AttrName="Same_AAA" AttrMaxValue="123">
+  <Name>Test</Name>
+  <MaxValue>20</MaxValue>
+  <Some>Two</Some>
+  <Different>aaaaaaa</Different>
+  <StringList>
+    <item>a</item>
+    <item>b</item>
+    <item>c</item>
+  </StringList>
+  <JustStringArray>
+    <item>a</item>
+    <item>b</item>
+    <item>c</item>
+  </JustStringArray>
+  <InnerList>
+    <Inner>
+      <InnerName>InnerTest</InnerName>
+      <InnerSome>One</InnerSome>
+    </Inner>
+    <Inner>
+      <InnerName>InnerTest</InnerName>
+      <InnerSome>Two</InnerSome>
+    </Inner>
+    <Inner>
+      <InnerName>InnerTest</InnerName>
+      <InnerSome>Three</InnerSome>
+    </Inner>
+  </InnerList>
+  <DictionaryList>
+    <item key="1" value="a"/>
+    <item key="2" value="b"/>
+    <item key="3" value="c"/>
+  </DictionaryList>
+  <DictionaryList2>
+    <item key="1">
+      <value>One</value>
+    </item>
+    <item>
+      <key>2</key>
+      <value>Two</value>
+    </item>
+    <item value="Three">
+      <key>3</key>
+    </item>
+  </DictionaryList2>
+  <SuperDictionaryList>
+    <item key="1">
+      <value>
+        <Inner>
+          <InnerName>InnerTest</InnerName>
+          <InnerSome>One</InnerSome>
+        </Inner>
+      </value>
+    </item>
+    <item>
+      <key>2</key>
+      <value>
+        <Inner>
+          <InnerName>InnerTest</InnerName>
+          <InnerSome>One</InnerSome>
+        </Inner>
+      </value>
+    </item>
+    <item>
+      <key>3</key>
+      <value>
+        <Inner>
+          <InnerName>InnerTest</InnerName>
+          <InnerSome>One</InnerSome>
+        </Inner>
+      </value>
+    </item>
+  </SuperDictionaryList>
+  <Inner>
+    <InnerName>InnerTest</InnerName>
+    <InnerSome>Three</InnerSome>
+  </Inner>
+  <CustomStrategy>1;2;3;4;5;6</CustomStrategy>
+  <DifferentCustomStrategy>1;2;3;4;5;6;7;8;9;10</DifferentCustomStrategy>
+</SameSampleConfig>
