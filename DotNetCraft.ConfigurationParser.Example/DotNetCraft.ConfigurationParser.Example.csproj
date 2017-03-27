@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetCraft.ConfigurationParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetCraft.ConfigurationParser.1.0.1\lib\net45\DotNetCraft.ConfigurationParser.dll</HintPath>
+      <HintPath>..\packages\DotNetCraft.ConfigurationParser.1.0.2\lib\net45\DotNetCraft.ConfigurationParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
