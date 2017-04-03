@@ -78,6 +78,21 @@ namespace DotNetCraft.ConfigurationParserTests.StrategiesTests
                         <item>2</item>
                         <item>3</item>
                     </List>", typeof(ICollection<double>), typeof(double), 3)]
+        [TestCase(@"<List>
+                        <item>a</item>
+                        <item>b</item>
+                        <item>c</item>
+                    </List>", typeof(IEnumerable<string>), typeof(string), 3)]
+        [TestCase(@"<List>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                    </List>", typeof(IEnumerable<int>), typeof(int), 3)]
+        [TestCase(@"<List>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                    </List>", typeof(IEnumerable<double>), typeof(double), 3)]
         public void InterfaceGenericCollectionMappingWithPrimitiveItemsTest(string input, Type expectedType, Type itemType, int collectionSize)
         {
             XmlDocument xmlNode = new XmlDocument();
