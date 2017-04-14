@@ -9,7 +9,7 @@
     </description>
     <releaseNotes />
     <language>en-US</language>
-    <iconUrl>https://github.com/DotNetCraft/ConfigurationParser/blob/master/Avatar.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/DotNetCraft/ConfigurationParser/master/Avatar.png</iconUrl>
     <licenseUrl>https://github.com/DotNetCraft/ConfigurationParser/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/DotNetCraft/ConfigurationParser</projectUrl>
     <authors>DotNetCraft</authors>

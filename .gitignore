@@ -13,3 +13,5 @@ DotNetCraft.ConfigurationParser/bin/
 DotNetCraft.ConfigurationParserTests/obj/
 DotNetCraft.ConfigurationParser.Example/obj/
 DotNetCraft.ConfigurationParser.Example/bin/
+*.nupkg
+*.exe
