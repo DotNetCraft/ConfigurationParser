@@ -29,6 +29,7 @@ namespace DotNetCraft.ConfigurationParserTests.StrategiesTests
         [TestCase("string", typeof(string))]
         [TestCase("{8E0084F1-C9B4-4E2F-AE6E-C04DD110DE3C}", typeof(Guid))]
         [TestCase("Two", typeof(TestEnum))]
+        [TestCase("01.02.03", typeof(DateTime))]
         public void PrimitiveTypesMappingTest(string input, Type expectedType)
         {
             IPrimitiveMappingStrategy primitiveMappingStrategy = new PrimitiveMappingStrategy();

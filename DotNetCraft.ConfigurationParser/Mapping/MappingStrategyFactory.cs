@@ -38,6 +38,9 @@ namespace DotNetCraft.ConfigurationParser.Mapping
             Register(typeof(Dictionary<,>), new GenericDictionaryMappingStrategy(this));
             Register(typeof(SortedList<,>), new GenericDictionaryMappingStrategy(this));
             Register(typeof(IDictionary<,>), new GenericDictionaryMappingStrategy(this));
+
+            Register(typeof(TimeSpan), new TimeSpanStrategy());
+            Register(typeof(DateTime), new DateTimeStrategy());
         }
 
         #endregion
