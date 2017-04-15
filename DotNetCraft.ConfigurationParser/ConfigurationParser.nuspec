@@ -9,7 +9,7 @@
     </description>
     <releaseNotes>
       1.0.4
-      • Changed – .NET version of the project. Not it is 4.0.
+      • Changed – .NET version of the project. Now it is .NET 4.0.
 
       1.0.3
       • Added – TimeSpan strategy.
@@ -24,4 +24,8 @@
     <copyright>DotNetCraft 2017</copyright>
     <tags>Configuration XML config parser configurationmanager configurationparser configurationhandler bind binding readconfig</tags>
   </metadata>
+  <files>
+    <file src="..\DotNetCraft.ConfigurationParser\Bin\Release\*.dll" target="lib\net40" />
+    <file src="..\DotNetCraft.ConfigurationParser\Bin\Release\*.pdb" target="lib\net40" />
+  </files>
 </package>
