@@ -60,7 +60,7 @@
     <Compile Include="XmlUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ConfigurationParser.nuspec" />
+    <None Include="DotNetCraft.ConfigurationParser.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

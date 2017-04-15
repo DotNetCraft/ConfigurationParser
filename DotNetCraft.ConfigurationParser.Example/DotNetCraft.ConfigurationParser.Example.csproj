@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConfigurationParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetCraft.ConfigurationParser.1.0.5\lib\ConfigurationParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DotNetCraft.ConfigurationParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetCraft.ConfigurationParser.1.0.2\lib\net45\DotNetCraft.ConfigurationParser.dll</HintPath>
+      <HintPath>..\packages\DotNetCraft.ConfigurationParser.1.0.5\lib\DotNetCraft.ConfigurationParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

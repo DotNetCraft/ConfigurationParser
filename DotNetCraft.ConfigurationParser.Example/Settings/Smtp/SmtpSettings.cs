@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DotNetCraft.ConfigurationParser.Attributes;
+using ConfigurationParser.Attributes;
 using DotNetCraft.ConfigurationParser.Example.CustomStrategies;
 
 namespace DotNetCraft.ConfigurationParser.Example.Settings.Smtp

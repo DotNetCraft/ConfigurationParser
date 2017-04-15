@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using DotNetCraft.ConfigurationParser.Mapping.Strategies;
+using ConfigurationParser.Mapping;
 
 namespace DotNetCraft.ConfigurationParser.Example.CustomStrategies
 {
