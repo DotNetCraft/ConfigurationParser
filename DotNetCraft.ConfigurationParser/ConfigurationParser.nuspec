@@ -2,12 +2,19 @@
 <package>
   <metadata>
     <id>DotNetCraft.ConfigurationParser</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <title>Configuration Parser for .NET</title>
     <summary>Configuration Parser for .NET.</summary>
     <description>Configuration Parser provides the most convenient way to read configuration files of your applications. The parser is specifically designed to easily bind custom configuration sections. All required mapping and performing casts will be made by the Configuration Parser automatically.
     </description>
-    <releaseNotes />
+    <releaseNotes>
+      1.0.4
+      • Changed – .NET version of the project. Not it is 4.0.
+
+      1.0.3
+      • Added – TimeSpan strategy.
+      • Added – DateTime strategy.
+    </releaseNotes>
     <language>en-US</language>
     <iconUrl>https://raw.githubusercontent.com/DotNetCraft/ConfigurationParser/master/Avatar.png</iconUrl>
     <licenseUrl>https://github.com/DotNetCraft/ConfigurationParser/blob/master/LICENSE.txt</licenseUrl>

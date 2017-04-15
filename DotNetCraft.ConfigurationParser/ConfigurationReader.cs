@@ -127,7 +127,7 @@ namespace DotNetCraft.ConfigurationParser
                         IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(propertyInfo.PropertyType);
                         value = mappingStrategy.Map(attributeValue, propertyInfo.PropertyType);
                     }
-                    propertyInfo.SetValue(obj, value);
+                    propertyInfo.SetValue(obj, value, null);
                 }
             }
 
@@ -147,7 +147,7 @@ namespace DotNetCraft.ConfigurationParser
                     {
                         ICustomMappingStrategy customMappingStrategy = customStrategies[propertyInfo.Name];
                         var value = customMappingStrategy.Map(child, propertyInfo.PropertyType);
-                        propertyInfo.SetValue(obj, value);
+                        propertyInfo.SetValue(obj, value, null);
                         continue;
                     }
 
@@ -156,13 +156,13 @@ namespace DotNetCraft.ConfigurationParser
                     {
                         IPrimitiveMappingStrategy mappingStrategy = mappingStrategyFactory.CreatePrimitiveStrategy(propertyInfo.PropertyType);
                         var value = mappingStrategy.Map(child.InnerText, propertyInfo.PropertyType);
-                        propertyInfo.SetValue(obj, value);
+                        propertyInfo.SetValue(obj, value, null);
                     }
                     else
                     {                       
                         IMappingStrategy mappingStrategy = mappingStrategyFactory.CreateComplexStrategy(propertyInfo.PropertyType);                      
                         var value = mappingStrategy.Map(child, propertyInfo.PropertyType, this);
-                        propertyInfo.SetValue(obj, value);
+                        propertyInfo.SetValue(obj, value, null);
                     }
                 }
             }
