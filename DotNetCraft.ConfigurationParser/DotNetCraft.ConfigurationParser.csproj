@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\CustomStrategyAttribute.cs" />
+    <Compile Include="Attributes\IgnorePropertyAttribute.cs" />
     <Compile Include="Attributes\PropertyMappingAttribute.cs" />
     <Compile Include="ConfigurationReader.cs" />
     <Compile Include="Exceptions\MappingStrategyFactoryException.cs" />

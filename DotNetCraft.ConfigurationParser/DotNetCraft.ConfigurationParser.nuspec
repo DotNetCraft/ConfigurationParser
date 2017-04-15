@@ -2,15 +2,18 @@
 <package>
   <metadata>
     <id>DotNetCraft.ConfigurationParser</id>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <title>Configuration Parser for .NET</title>
     <summary>Configuration Parser for .NET.</summary>
     <description>Configuration Parser provides the most convenient way to read configuration files of your applications. The parser is specifically designed to easily bind custom configuration sections. All required mapping and performing casts will be made by the Configuration Parser automatically.
     </description>
-    <releaseNotes>
+    <releaseNotes>1.0.6
+      • Changed – Elements name now case insensitive.
+      • Added – New IgnorePropertyAttribute has been added.
+
       1.0.5
       • Fixed – Minor issues have been fixed.
-      
+
       1.0.4
       • Changed – .NET version of the project. Now it is .NET 4.0.
 

@@ -88,12 +88,13 @@ namespace DotNetCraft.ConfigurationParser
             PropertyInfo[] propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             Dictionary<string, PropertyInfo> attributes = new Dictionary<string, PropertyInfo>();
             Dictionary<string, ICustomMappingStrategy> customStrategies = new Dictionary<string, ICustomMappingStrategy>();
+            List<string> ignoreList = new List<string>();
             
             IEnumerable<PropertyInfo> props = type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PropertyMappingAttribute)));
             foreach (PropertyInfo propertyInfo in props)
             {
                 PropertyMappingAttribute attr = (PropertyMappingAttribute) Attribute.GetCustomAttribute(propertyInfo, typeof(PropertyMappingAttribute));
-                attributes.Add(attr.Name, propertyInfo);
+                attributes.Add(attr.Name.ToLower(), propertyInfo);
             }
 
             props = type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(CustomStrategyAttribute)));
@@ -101,7 +102,13 @@ namespace DotNetCraft.ConfigurationParser
             {
                 CustomStrategyAttribute attr = (CustomStrategyAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(CustomStrategyAttribute));
                 ICustomMappingStrategy strategy = (ICustomMappingStrategy) Activator.CreateInstance(attr.StrategyType);
-                customStrategies.Add(propertyInfo.Name, strategy);
+                customStrategies.Add(propertyInfo.Name.ToLower(), strategy);
+            }
+
+            props = type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(IgnorePropertyAttribute)));
+            foreach (PropertyInfo propertyInfo in props)
+            {
+                ignoreList.Add(propertyInfo.Name.ToLower());
             }
 
             if (xmlNode.Attributes != null)
@@ -109,17 +116,20 @@ namespace DotNetCraft.ConfigurationParser
                 for (int i = 0; i < xmlNode.Attributes.Count; i++)
                 {
                     XmlAttribute xmlAttribute = xmlNode.Attributes[i];
-                    string attributeName = xmlAttribute.Name;
+                    string attributeName = xmlAttribute.Name.ToLower();
                     string attributeValue = xmlAttribute.Value;
+
+                    if (ignoreList.Contains(attributeName))
+                        continue;
 
                     PropertyInfo propertyInfo;
                     if (attributes.TryGetValue(attributeName, out propertyInfo) == false)
-                        propertyInfo = propertyInfos.Single(x => x.Name == attributeName);
+                        propertyInfo = propertyInfos.Single(x => x.Name.ToLower() == attributeName);
 
                     object value;
-                    if (customStrategies.ContainsKey(propertyInfo.Name))
+                    if (customStrategies.ContainsKey(propertyInfo.Name.ToLower()))
                     {
-                        ICustomMappingStrategy customMappingStrategy = customStrategies[propertyInfo.Name];
+                        ICustomMappingStrategy customMappingStrategy = customStrategies[propertyInfo.Name.ToLower()];
                         value = customMappingStrategy.Map(attributeValue, propertyInfo.PropertyType);
                     }
                     else
@@ -139,13 +149,17 @@ namespace DotNetCraft.ConfigurationParser
                     if (child.NodeType != XmlNodeType.Element)
                         continue;
 
-                    PropertyInfo propertyInfo;
-                    if (attributes.TryGetValue(child.Name, out propertyInfo) == false)
-                        propertyInfo = propertyInfos.Single(x => x.Name == child.Name);
+                    string childName = child.Name.ToLower();
+                    if (ignoreList.Contains(childName))
+                        continue;
 
-                    if (customStrategies.ContainsKey(propertyInfo.Name))
+                    PropertyInfo propertyInfo;                    
+                    if (attributes.TryGetValue(childName, out propertyInfo) == false)
+                        propertyInfo = propertyInfos.Single(x => x.Name.ToLower() == childName);
+
+                    if (customStrategies.ContainsKey(propertyInfo.Name.ToLower()))
                     {
-                        ICustomMappingStrategy customMappingStrategy = customStrategies[propertyInfo.Name];
+                        ICustomMappingStrategy customMappingStrategy = customStrategies[propertyInfo.Name.ToLower()];
                         var value = customMappingStrategy.Map(child, propertyInfo.PropertyType);
                         propertyInfo.SetValue(obj, value, null);
                         continue;
